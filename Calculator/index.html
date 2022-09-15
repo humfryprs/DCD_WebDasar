@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Web Calculator</title>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"
+    href="style.css">
+</head>
+
+<body>
+  <div class="flex-container-column card">
+    <div class="display">
+      <h1 id="displayNumber">0</h1>
+    </div>
+    <div class="flex-container-row">
+      <div class="button">7</div>
+      <div class="button">8</div>
+      <div class="button">9</div>
+      <div class="button negative">+/-</div>
+    </div>
+    <div class="flex-container-row">
+      <div class="button">4</div>
+      <div class="button">5</div>
+      <div class="button">6</div>
+      <div class="button operator">-</div>
+    </div>
+    <div class="flex-container-row">
+      <div class="button">1</div>
+      <div class="button">2</div>
+      <div class="button">3</div>
+      <div class="button operator">+</div>
+    </div>
+    <div class="flex-container-row">
+      <div class="button clear">CE</div>
+      <div class="button">0</div>
+      <div class="button double equals">=</div>
+    </div>
+    <table class="history card">
+      <h2>Riwayat Perhitungan</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Angka Pertama</th>
+            <th>Operator</th>
+            <th>Angka Kedua</th>
+            <th>Hasil</th>
+          </tr>
+        </thead>
+        <tbody id="historyList"></tbody>
+      </table>
+    </table>
+  </div>
+  <p>Anda sudah menekan tombol sebanyak <span id="count"></span> kali</p>
+  <button id="button">Click Disini!</button>
+
+  <script>
+    const cacheKey = "NUMBER";
+    if (typeof (Storage) !== "undefined") {
+
+      // pengecekkan apakah data sessionStorage dengan key NUMBER tersedia atau belum
+      if (sessionStorage.getItem(cacheKey) === "undefined") {
+        // Jika belum maka akan atur dengan nilai awal yakni 0
+        sessionStorage.setItem(cacheKey, 0);
+      }
+
+      const button = document.querySelector("#button");
+      const count = document.querySelector("#count");
+      button.addEventListener('click', function (event) {
+        let number = sessionStorage.getItem(cacheKey);
+        number++;
+        sessionStorage.setItem(cacheKey, number);
+        count.innerText = sessionStorage.getItem(cacheKey);
+      })
+    } else {
+      alert("Browser tidak mendukung Web Storage")
+    }
+  </script>
+  <script src="storage.js"></script>
+  <script src="kalkulator.js"></script>
+
+
+</body>
+
+</html>
